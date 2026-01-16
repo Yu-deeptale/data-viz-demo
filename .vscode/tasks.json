@@ -1,0 +1,72 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start Backend",
+            "type": "shell",
+            "command": "& '${workspaceFolder}\\venv\\Scripts\\pip.exe' install openpyxl; & '${workspaceFolder}\\venv\\Scripts\\uvicorn.exe' main:app --reload",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Uvicorn running on",
+                    "endsPattern": "Application startup complete"
+                }
+            },
+            "presentation": {
+                "group": "server",
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Start Frontend",
+            "type": "shell",
+            "command": "npm run dev",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": [
+                    {
+                        "regexp": ".",
+                        "file": 1,
+                        "location": 2,
+                        "message": 3
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "Ready in",
+                    "endsPattern": "compiled client and server successfully"
+                }
+            },
+            "presentation": {
+                "group": "server",
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Start All Servers",
+            "dependsOn": ["Start Backend", "Start Frontend"],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
